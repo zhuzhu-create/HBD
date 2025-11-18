@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>送给汉堡的生日礼物</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffcce6 0%, #ffb3d9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 1.5s ease;
+            border: 8px solid #ffb6c1;
+            padding: 5px;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff85a2, #ffacc7);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px dotted #ff69b4;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 20px;
+            background: #fff9fb;
+            position: relative;
+        }
+        
+        .burger-cake-container {
+            position: relative;
+            width: 260px;
+            height: 210px;
+            margin: 15px 0;
+        }
+        
+        .burger-cake {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 240px;
+            height: 160px;
+        }
+        
+        .burger-layer {
+            position: absolute;
+            width: 100%;
+            border-radius: 50%;
+            left: 0;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .top-bun {
+            height: 40px;
+            background: linear-gradient(to bottom, #f9d56e, #e6b325);
+            top: 0;
+            z-index: 7;
+        }
+        
+        .sesame {
+            position: absolute;
+            background: #f5f5f5;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            z-index: 8;
+        }
+        
+        .lettuce {
+            height: 16px;
+            background: linear-gradient(to bottom, #8bc34a, #689f38);
+            top: 40px;
+            z-index: 6;
+        }
+        
+        .cheese {
+            height: 12px;
+            background: linear-gradient(to bottom, #ffeb3b, #fbc02d);
+            top: 56px;
+            z-index: 5;
+        }
+        
+        .patty {
+            height: 24px;
+            background: linear-gradient(to bottom, #7b3f00, #5d4037);
+            top: 68px;
+            z-index: 4;
+        }
+        
+        .tomato {
+            height: 12px;
+            background: linear-gradient(to bottom, #f44336, #d32f2f);
+            top: 92px;
+            z-index: 3;
+        }
+        
+        .onion {
+            height: 8px;
+            background: linear-gradient(to bottom, #e1bee7, #ba68c8);
+            top: 104px;
+            z-index: 2;
+        }
+        
+        .bottom-bun {
+            height: 32px;
+            background: linear-gradient(to bottom, #e6b325, #d4a017);
+            top: 112px;
+            z-index: 1;
+        }
+        
+        .candle {
+            position: absolute;
+            width: 7px;
+            height: 35px;
+            background: linear-gradient(to bottom, #ff5252, #b71c1c);
+            border-radius: 4px;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9;
+            box-shadow: 0 0 5px rgba(255, 82, 82, 0.5);
+            transition: opacity 0.5s ease;
+        }
+        
+        .flame {
+            position: absolute;
+            width: 18px;
+            height: 25px;
+            background: radial-gradient(#ffeb3b, #ff9800, #ff5722);
+            border-radius: 50% 50% 20% 20%;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 1.5s infinite alternate;
+            filter: blur(1px);
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+        
+        .flame.blown-out {
+            animation: none;
+            opacity: 0;
+        }
+        
+        .candle.blown-out {
+            opacity: 0.5;
+        }
+        
+        .wish-button {
+            background: linear-gradient(45deg, #ff85a2, #ffacc7);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 133, 162, 0.4);
+            min-width: 160px;
+            border: 3px solid #ff69b4;
+            width: 90%;
+            max-width: 260px;
+        }
+        
+        .wish-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 133, 162, 0.6);
+            background: linear-gradient(45deg, #ff6b9d, #ff99c2);
+        }
+        
+        .wish-button:active {
+            transform: translateY(1px);
+        }
+        
+        .wish-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            border: 3px solid #aaaaaa;
+        }
+        
+        .wish-message {
+            margin-top: 5px; /* 减少上边距，使文字更靠近汉堡 */
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 1.3rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            line-height: 1.6;
+            background: #fff0f5;
+            padding: 14px 20px;
+            border-radius: 20px;
+            border: 3px dashed #ffb6c1;
+            width: 90%;
+            max-width: 300px;
+        }
+        
+        .countdown {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #ff6b6b;
+            font-weight: bold;
+            height: 30px;
+            text-align: center;
+            width: 90%;
+            max-width: 300px;
+        }
+        
+        .blow-button {
+            background: linear-gradient(45deg, #a2d2ff, #bde0fe);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(162, 210, 255, 0.4);
+            display: none;
+            border: 3px solid #89c2ff;
+            width: 90%;
+            max-width: 260px;
+        }
+        
+        .blow-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(162, 210, 255, 0.6);
+            background: linear-gradient(45deg, #8bc1ff, #a8d4ff);
+        }
+        
+        .action-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: 8px;
+            margin-top: 8px;
+            min-height: 80px;
+        }
+        
+        /* 轻松熊装饰元素 */
+        .rilakkuma {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        .rilakkuma-1 {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-15deg);
+        }
+        
+        .rilakkuma-2 {
+            bottom: 10px;
+            right: 10px;
+            transform: rotate(15deg);
+        }
+        
+        .rilakkuma-body {
+            position: absolute;
+            width: 60px;
+            height: 50px;
+            background-color: #f5c266;
+            border-radius: 50% 50% 40% 40%;
+            top: 20px;
+            left: 10px;
+        }
+        
+        .rilakkuma-head {
+            position: absolute;
+            width: 70px;
+            height: 60px;
+            background-color: #f5c266;
+            border-radius: 50%;
+            top: 0;
+            left: 5px;
+        }
+        
+        .rilakkuma-ear {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #f5c266;
+            border-radius: 50%;
+        }
+        
+        .rilakkuma-ear-left {
+            top: -5px;
+            left: 5px;
+        }
+        
+        .rilakkuma-ear-right {
+            top: -5px;
+            right: 5px;
+        }
+        
+        .rilakkuma-face {
+            position: absolute;
+            width: 50px;
+            height: 40px;
+            background-color: white;
+            border-radius: 40%;
+            top: 20px;
+            left: 10px;
+        }
+        
+        .rilakkuma-eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: black;
+            border-radius: 50%;
+            top: 15px;
+        }
+        
+        .rilakkuma-eye-left {
+            left: 15px;
+        }
+        
+        .rilakkuma-eye-right {
+            right: 15px;
+        }
+        
+        .rilakkuma-nose {
+            position: absolute;
+            width: 12px;
+            height: 8px;
+            background-color: black;
+            border-radius: 40%;
+            top: 25px;
+            left: 19px;
+        }
+        
+        .rilakkuma-mouth {
+            position: absolute;
+            width: 20px;
+            height: 8px;
+            border-bottom: 2px solid black;
+            border-radius: 0 0 50% 50%;
+            top: 32px;
+            left: 15px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes flicker {
+            0%, 100% { 
+                transform: translateX(-50%) scale(1); 
+                opacity: 1;
+            }
+            25% { 
+                transform: translateX(-50%) scale(1.1) translateX(2px); 
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateX(-50%) scale(0.9); 
+                opacity: 1;
+            }
+            75% { 
+                transform: translateX(-50%) scale(1.05) translateX(-2px); 
+                opacity: 0.9;
+            }
+        }
+        
+        /* 手机端优化 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header {
+                padding: 18px 15px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .burger-cake-container {
+                width: 240px;
+                height: 190px;
+            }
+            
+            .burger-cake {
+                width: 220px;
+                height: 150px;
+            }
+            
+            .wish-button, .blow-button {
+                padding: 12px 24px;
+                font-size: 1rem;
+                max-width: 240px;
+            }
+            
+            .wish-message {
+                font-size: 1.2rem;
+                padding: 12px 18px;
+                max-width: 280px;
+            }
+            
+            .countdown {
+                font-size: 1.1rem;
+                max-width: 280px;
+            }
+            
+            .action-container {
+                min-height: 70px;
+            }
+            
+            .rilakkuma {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .rilakkuma-1 {
+                top: 5px;
+                left: 5px;
+            }
+            
+            .rilakkuma-2 {
+                bottom: 5px;
+                right: 5px;
+            }
+            
+            .rilakkuma-body {
+                width: 45px;
+                height: 38px;
+                top: 15px;
+                left: 8px;
+            }
+            
+            .rilakkuma-head {
+                width: 52px;
+                height: 45px;
+                left: 4px;
+            }
+            
+            .rilakkuma-ear {
+                width: 19px;
+                height: 19px;
+            }
+            
+            .rilakkuma-face {
+                width: 38px;
+                height: 30px;
+                top: 15px;
+                left: 7px;
+            }
+            
+            .rilakkuma-eye {
+                width: 6px;
+                height: 6px;
+                top: 11px;
+            }
+            
+            .rilakkuma-nose {
+                width: 9px;
+                height: 6px;
+                top: 19px;
+                left: 14px;
+            }
+            
+            .rilakkuma-mouth {
+                width: 15px;
+                height: 6px;
+                top: 24px;
+                left: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-width: 6px;
+                border-radius: 20px;
+            }
+            
+            .burger-cake-container {
+                width: 220px;
+                height: 170px;
+            }
+            
+            .burger-cake {
+                width: 200px;
+                height: 140px;
+            }
+            
+            .action-container {
+                min-height: 60px;
+            }
+            
+            .content {
+                padding: 18px 12px;
+            }
+            
+            .rilakkuma {
+                display: none; /* 在非常小的屏幕上隐藏轻松熊 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>汉堡🍔HBD🎊</h1>
+        </div>
+
+        <div class="content">
+            <!-- 轻松熊装饰 -->
+            <div class="rilakkuma rilakkuma-1">
+                <div class="rilakkuma-head">
+                    <div class="rilakkuma-ear rilakkuma-ear-left"></div>
+                    <div class="rilakkuma-ear rilakkuma-ear-right"></div>
+                    <div class="rilakkuma-face">
+                        <div class="rilakkuma-eye rilakkuma-eye-left"></div>
+                        <div class="rilakkuma-eye rilakkuma-eye-right"></div>
+                        <div class="rilakkuma-nose"></div>
+                        <div class="rilakkuma-mouth"></div>
+                    </div>
+                </div>
+                <div class="rilakkuma-body"></div>
+            </div>
+
+            <div class="rilakkuma rilakkuma-2">
+                <div class="rilakkuma-head">
+                    <div class="rilakkuma-ear rilakkuma-ear-left"></div>
+                    <div class="rilakkuma-ear rilakkuma-ear-right"></div>
+                    <div class="rilakkuma-face">
+                        <div class="rilakkuma-eye rilakkuma-eye-left"></div>
+                        <div class="rilakkuma-eye rilakkuma-eye-right"></div>
+                        <div class="rilakkuma-nose"></div>
+                        <div class="rilakkuma-mouth"></div>
+                    </div>
+                </div>
+                <div class="rilakkuma-body"></div>
+            </div>
+
+            <div class="burger-cake-container">
+                <div class="candle" id="candle"></div>
+                <div class="flame" id="flame"></div>
+                <div class="burger-cake">
+                    <div class="burger-layer top-bun">
+                        <!-- 芝麻 -->
+                        <div class="sesame" style="top: 8px; left: 30%;"></div>
+                        <div class="sesame" style="top: 12px; left: 60%;"></div>
+                        <div class="sesame" style="top: 16px; left: 45%;"></div>
+                        <div class="sesame" style="top: 10px; left: 75%;"></div>
+                        <div class="sesame" style="top: 14px; left: 20%;"></div>
+                    </div>
+                    <div class="burger-layer lettuce"></div>
+                    <div class="burger-layer cheese"></div>
+                    <div class="burger-layer patty"></div>
+                    <div class="burger-layer tomato"></div>
+                    <div class="burger-layer onion"></div>
+                    <div class="burger-layer bottom-bun"></div>
+                </div>
+            </div>
+
+            <button class="wish-button" id="wishButton">
+                <i class="fas fa-birthday-cake"></i> 许个愿望
+            </button>
+
+            <div class="action-container">
+                <div class="countdown" id="countdown"></div>
+                <button class="blow-button" id="blowButton">
+                    <i class="fas fa-wind"></i> 吹灭蜡烛
+                </button>
+            </div>
+
+            <div class="wish-message" id="wishMessage">
+                愿你许的愿望✨都能实现噢🥳<br>生日快乐嘿嘿💗
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let countdownInterval;
+        let secondsLeft = 15; // 倒计时15秒
+        
+        // 许愿功能
+        document.getElementById('wishButton').addEventListener('click', function() {
+            const wishButton = document.getElementById('wishButton');
+            const countdown = document.getElementById('countdown');
+            const blowButton = document.getElementById('blowButton');
+            
+            // 禁用许愿按钮
+            wishButton.disabled = true;
+            wishButton.innerHTML = '<i class="fas fa-hourglass-half"></i> 许愿中...';
+            
+            // 开始倒计时
+            secondsLeft = 15;
+            countdown.textContent = `许愿倒计时: ${secondsLeft}秒`;
+            
+            countdownInterval = setInterval(function() {
+                secondsLeft--;
+                countdown.textContent = `许愿倒计时: ${secondsLeft}秒`;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    
+                    // 显示"许愿完成"
+                    wishButton.innerHTML = '<i class="fas fa-check-circle"></i> 许愿完成';
+                    countdown.textContent = '许愿完成！现在可以吹蜡烛啦';
+                    
+                    // 等待5秒后隐藏许愿按钮和倒计时文字，显示吹蜡烛按钮
+                    setTimeout(() => {
+                        wishButton.style.display = 'none';
+                        countdown.style.display = 'none';
+                        blowButton.style.display = 'block';
+                    }, 5000); // 5秒延迟
+                }
+            }, 1000);
+        });
+        
+        // 吹灭蜡烛功能
+        document.getElementById('blowButton').addEventListener('click', function() {
+            const flame = document.getElementById('flame');
+            const candle = document.getElementById('candle');
+            const blowButton = document.getElementById('blowButton');
+            const wishMessage = document.getElementById('wishMessage');
+            
+            // 吹灭蜡烛
+            flame.classList.add('blown-out');
+            candle.classList.add('blown-out');
+            
+            // 隐藏吹蜡烛按钮
+            blowButton.style.display = 'none';
+            
+            // 显示愿望消息
+            wishMessage.style.opacity = '1';
+        });
+    </script>
+</body>
+
+</html>
